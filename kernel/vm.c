@@ -1,10 +1,13 @@
-#include "param.h"
 #include "types.h"
+#include "param.h"
 #include "memlayout.h"
-#include "elf.h"
 #include "riscv.h"
 #include "defs.h"
-#include "fs.h"
+#include "spinlock.h"   
+#include "proc.h"       
+
+
+int flags2perm(int flags);  // defined in exec.c
 
 /*
  * the kernel's page table.
@@ -14,6 +17,13 @@ pagetable_t kernel_pagetable;
 extern char etext[];  // kernel.ld sets this to end of kernel code.
 
 extern char trampoline[]; // trampoline.S
+int flags2perm(int flags) {
+  int perm = 0;
+  if(flags & PTE_R) perm |= PTE_R;
+  if(flags & PTE_W) perm |= PTE_W;
+  if(flags & PTE_X) perm |= PTE_X;
+  return perm;
+}
 
 // Make a direct-map page table for the kernel.
 pagetable_t
@@ -260,6 +270,44 @@ uvmalloc(pagetable_t pagetable, uint64 oldsz, uint64 newsz, int xperm)
     }
   }
   return newsz;
+}
+// Lazily allocates virtual pages for a segment from `start` to `start + length`.
+// Does NOT allocate physical memory. Sets up placeholder invalid PTEs.
+// Stores metadata in the process for demand paging (like file offset and size).
+int
+lazyalloc(pagetable_t pagetable, uint64 start, uint64 length, uint file_offset, int flags, struct inode *ip)
+{
+  struct proc *p = myproc();
+  uint64 a = PGROUNDUP(start);
+  uint64 end = PGROUNDUP(start + length);
+  int perm = flags2perm(flags);
+
+  if (p->lazy_count >= MAX_LAZY)
+    return -1;
+
+  // Register this segment for lazy loading
+  struct lazy_segment *seg = &p->lazy_segs[p->lazy_count++];
+  seg->va_start = a;
+  seg->memsz = end - a;
+  seg->filesz = length;
+  seg->file_offset = file_offset;
+  seg->flags = flags;
+  seg->ip = ip;
+  ilock(ip);    // Prevent inode from being freed
+  p->lazy_segs[p->lazy_count - 1].ip = ip;
+
+  // Map the virtual region with invalid entries (to trigger page fault)
+  for (; a < end; a += PGSIZE) {
+    if (mappages(pagetable, a, PGSIZE, 0, perm) != 0)
+      return -1;
+
+    // Invalidate page (remove PTE_V flag) to ensure fault on access
+    pte_t *pte = walk(pagetable, a, 0);
+    if (pte)
+      *pte &= ~PTE_V;
+  }
+
+  return 0;
 }
 
 // Deallocate user pages to bring the process size from oldsz to
