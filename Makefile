@@ -196,7 +196,7 @@ UPROGS=\
         $U/_zombie\
         $U/_testlazy\
         $U/_testlazy2\
-       
+	$U/_testlazy3\
 
 
 ifeq ($(LAB),syscall)
