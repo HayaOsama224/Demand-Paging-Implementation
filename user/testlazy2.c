@@ -18,16 +18,17 @@ int main() {
     // Write a unique char to each page
     for (int i = 0; i < NUM_PAGES; i++) {
         char *addr = base + i * PGSIZE;
-        *addr = 'a' + i;
-        printf("Wrote '%c' at %p\n", *addr, addr);
+        char value = 'a' + i;
+        *addr = value;
+        printf("Writing: value=%d  at addr=%p\n", (int)value, addr);
     }
 
     // Read back and verify
     for (int i = 0; i < NUM_PAGES; i++) {
         char *addr = base + i * PGSIZE;
-        char val = *addr;
-        printf("Read '%c' from %p\n", val, addr);
-        if (val != 'a' + i) {
+        char value = *addr;
+        printf("Reading: value=%d  from addr=%p\n", (int)value, addr);
+        if (value != 'a' + i) {
             printf("Value mismatch at page %d!\n", i);
             exit(1);
         }
