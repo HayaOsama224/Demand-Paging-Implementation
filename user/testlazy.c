@@ -2,9 +2,16 @@
 #include "user/user.h"
 
 int main() {
-  char *p = (char *)0x400000; // Any high address in the lazy-mapped segment
-  *p = 'Z';
-  printf("Lazy page loaded: %c\n", *p);
-  exit(0);
+    char *p = sbrk(4096); // allocate one page
+    if (p == (char *)-1) {
+        printf("sbrk failed\n");
+        exit(1);
+    }
+    printf("Allocated page at %p\n", p);
+
+    p[0] = 'Z';
+    printf("Wrote %c at %p\n", p[0], p);
+
+    exit(0);
 }
 

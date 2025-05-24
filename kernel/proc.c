@@ -25,6 +25,7 @@ extern char trampoline[]; // trampoline.S
 // memory model when using p->parent.
 // must be acquired before any p->lock.
 struct spinlock wait_lock;
+void vmprint(pagetable_t pagetable);
 
 // Allocate a page for each process's kernel stack.
 // Map it high in memory, followed by an invalid
@@ -88,7 +89,6 @@ myproc(void)
   pop_off();
   return p;
 }
-
 
 int
 allocpid()
@@ -237,15 +237,20 @@ userinit(void)
 
   p = allocproc();
   initproc = p;
-  
-  // allocate one user page and copy initcode's instructions
-  // and data into it.
+
+
+  p->pagetable = proc_pagetable(p);
+
+
   uvmfirst(p->pagetable, initcode, sizeof(initcode));
   p->sz = PGSIZE;
 
-  // prepare for the very first "return" from kernel to user.
-  p->trapframe->epc = 0;      // user program counter
-  p->trapframe->sp = PGSIZE;  // user stack pointer
+
+  vmprint(p->pagetable);  
+
+
+  p->trapframe->epc = 0;     
+  p->trapframe->sp = PGSIZE;  
 
   safestrcpy(p->name, "initcode", sizeof(p->name));
   p->cwd = namei("/");
@@ -254,6 +259,7 @@ userinit(void)
 
   release(&p->lock);
 }
+
 
 // Grow or shrink user memory by n bytes.
 // Return 0 on success, -1 on failure.
