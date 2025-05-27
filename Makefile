@@ -196,7 +196,13 @@ UPROGS=\
         $U/_zombie\
         $U/_testlazy\
         $U/_testlazy2\
-       
+	$U/_testlazy3\
+        $U/_bigread\
+        $U/_heapaccess\
+        $U/_testfork\
+
+
+UEXTRA += Demand.txt
 
 
 ifeq ($(LAB),syscall)
@@ -268,10 +274,10 @@ UPROGS += \
 	$U/_nettest
 endif
 
-UEXTRA=
-ifeq ($(LAB),util)
-	UEXTRA += user/xargstest.sh
-endif
+#UEXTRA=
+#ifeq ($(LAB),util)
+#	UEXTRA += user/xargstest.sh
+#endif
 
 
 fs.img: mkfs/mkfs README $(UEXTRA) $(UPROGS)

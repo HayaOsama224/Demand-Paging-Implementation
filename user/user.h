@@ -10,7 +10,7 @@ int read(int, void*, int);
 int close(int);
 int kill(int);
 int exec(const char*, char**);
-int open(const char*, int);
+int open(const char*, int, ...);  // Use variadic form to allow passing mode when using O_CREAT
 int mknod(const char*, short, short);
 int unlink(const char*);
 int fstat(int fd, struct stat*);

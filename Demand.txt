@@ -1,0 +1,100 @@
+1. Demand paging is a memory management scheme that loads pages only when they are needed.
+2. Operating systems use demand paging to reduce memory usage and increase efficiency.
+3. When a page fault occurs, the OS loads the required page from disk into physical memory.
+4. Demand paging helps in running programs larger than the physical memory available.
+5. The page replacement algorithm decides which page to remove when the memory is full.
+6. Page faults happen when the program tries to access a page not currently in physical memory.
+7. Demand paging allows for lazy loading of pages, improving initial program load time.
+8. Thrashing occurs when there are too many page faults, causing severe system slowdowns.
+9. The working set model helps the OS decide which pages to keep in memory.
+10. Pages are typically loaded from secondary storage such as a hard disk or SSD.
+11. Demand paging uses hardware support like the MMU (Memory Management Unit) to track pages.
+12. Swapping involves moving pages between main memory and disk storage.
+13. A page table keeps track of the status and location of each page.
+14. Dirty pages must be written back to disk before being replaced.
+15. FIFO, LRU, and Optimal are common page replacement algorithms used with demand paging.
+16. Demand paging can significantly reduce memory requirements for multitasking systems.
+17. Page faults trigger interrupts to the operating system to handle the missing pages.
+18. Copy-on-write is a technique often used with demand paging to optimize memory usage.
+19. Inverted page tables are sometimes used to manage memory in systems with large address spaces.
+20. Hardware TLBs (Translation Lookaside Buffers) speed up virtual to physical address translation.
+21. The OS maintains a free frame list to allocate frames to pages as needed.
+22. Demand paging helps support virtual memory by loading pages on demand.
+23. Pages can be marked invalid or valid in the page table to indicate their presence in memory.
+24. Dirty bit in the page table indicates if a page has been modified.
+25. Demand paging reduces the I/O operations needed compared to loading all pages at once.
+26. The working set is the set of pages a process is currently using actively.
+27. Page replacement algorithms aim to minimize the number of page faults.
+28. Demand paging relies on the locality of reference principle.
+29. Pages that have not been accessed recently are candidates for replacement.
+30. The page fault service routine loads the missing page into a free frame.
+31. If no free frame is available, a victim page is selected and replaced.
+32. The clock algorithm approximates LRU for efficient page replacement.
+33. Demand paging improves system responsiveness for large applications.
+34. Page size impacts the efficiency of demand paging.
+35. Smaller pages reduce internal fragmentation but increase overhead in page tables.
+36. Prefetching can be combined with demand paging to anticipate future page needs.
+37. The page fault rate affects overall system performance.
+38. Demand paging requires cooperation between hardware and OS software.
+39. Stack pages are often loaded on demand as a program runs.
+40. Segmentation and demand paging can be combined in some systems.
+41. Demand paging supports multiprogramming by sharing physical memory effectively.
+42. Page tables may be hierarchical to manage large virtual address spaces.
+43. Page faults can be major or minor depending on whether the page is on disk or in memory.
+44. Demand paging is essential for modern operating systems like Windows, Linux, and macOS.
+45. Thrashing can be detected by monitoring the rate of page faults.
+46. Working set size changes dynamically as a program executes.
+47. Demand paging improves memory utilization efficiency.
+48. Demand paging requires handling synchronization issues during page loading.
+49. Some systems use demand segmentation in addition to demand paging.
+50. Demand paging also allows for memory protection by controlling page access.
+51. Demand paging involves overhead for page fault handling and page replacement.
+52. Programs with poor locality suffer from higher page fault rates.
+53. In a demand paging system, the initial program load is minimal.
+54. Demand paging supports sparse address spaces efficiently.
+55. Paging reduces external fragmentation compared to segmentation alone.
+56. The page table entry contains the frame number and status bits.
+57. Demand paging helps virtualize physical memory for user processes.
+58. Demand paging systems typically use hardware support for page faults.
+59. The modified bit in a page table helps determine if a page must be written back.
+60. Page fault frequency is a key metric for memory management performance.
+61. Demand paging can slow down execution if page faults are frequent.
+62. Page replacement policies balance fairness and efficiency.
+63. Demand paging enables the execution of programs larger than physical RAM.
+64. Demand paging reduces the startup time of programs.
+65. Shared libraries benefit from demand paging by loading only needed pages.
+66. Disk latency affects the time required to handle page faults.
+67. The OS scheduler may adjust process priorities based on memory usage.
+68. Demand paging reduces unnecessary loading of unused code and data.
+69. Page fault handlers must be efficient to reduce execution delays.
+70. Some operating systems implement page prefetching to reduce faults.
+71. Page faults generate interrupts that switch control to the OS kernel.
+72. Demand paging helps in memory overcommitment scenarios.
+73. The frame allocation algorithm works together with demand paging.
+74. Page table entries can be cached in the TLB for fast translation.
+75. Demand paging uses the concept of valid and invalid page entries.
+76. Page fault handling includes saving process state and loading pages.
+77. Demand paging is often combined with segmentation for flexible memory management.
+78. Demand paging improves the overall throughput of the system.
+79. Memory mapped files use demand paging to load file contents.
+80. Demand paging reduces physical memory pressure.
+81. Shared memory segments benefit from demand paging to reduce duplication.
+82. Demand paging allows better use of limited physical memory resources.
+83. Demand paging requires a robust mechanism to detect and handle page faults.
+84. Demand paging interacts closely with the virtual memory manager.
+85. Effective demand paging balances memory usage and performance.
+86. Page fault latency is critical for interactive applications.
+87. Demand paging supports multitasking by sharing memory efficiently.
+88. The OS may swap out pages of inactive processes during demand paging.
+89. Demand paging allows large sparse data structures to be handled efficiently.
+90. Demand paging is a foundational concept in modern computer architecture.
+91. Page fault handlers update page tables to reflect new page locations.
+92. The cost of page faults can be reduced with faster storage media like SSDs.
+93. Demand paging is transparent to user applications.
+94. The OS maintains statistics on page faults to optimize policies.
+95. Demand paging must handle concurrent access in multi-threaded environments.
+96. Demand paging enables flexible and dynamic allocation of memory.
+97. Demand paging is essential for efficient virtual memory management.
+98. The page fault rate can be reduced by increasing physical memory.
+99. Demand paging uses page protection bits to enforce access rights.
+100. Modern OS kernels are optimized to minimize demand paging overhead.

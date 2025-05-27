@@ -125,6 +125,11 @@ exec(char *path, char **argv)
   oldpagetable = p->pagetable;
   p->pagetable = pagetable;
   p->sz = sz;
+ 
+  // Bump heap top
+  p->sz = PGROUNDUP(p->sz + 4096 * 256);
+  printf("exec: bumped initial p->sz to 0x%lx\n", p->sz);
+
   p->trapframe->epc = elf.entry;  // initial program counter = main
   p->trapframe->sp = sp; // initial stack pointer
   proc_freepagetable(oldpagetable, oldsz);

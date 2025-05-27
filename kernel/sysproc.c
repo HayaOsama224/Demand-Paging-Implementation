@@ -45,6 +45,7 @@ sys_sbrk(void)
     return -1;
   }
   addr = myproc()->sz;
+  printf("sbrk: pid=%d old_sz=0x%x n=0x%x\n", myproc()->pid, addr, n);
   myproc()->sz += n;
   if (n < 0) {
     uvmdealloc(myproc()->pagetable, addr, myproc()->sz);
