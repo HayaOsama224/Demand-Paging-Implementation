@@ -206,7 +206,7 @@ uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
       continue;  // skip instead of panic
 
     if((*pte & PTE_V) == 0) {
-      printf("uvmunmap: skipping unmapped va=%ld pte=%ld\n", a, *pte);
+     // printf("uvmunmap: skipping unmapped va=%ld pte=%ld\n", a, *pte);
       continue;  // skip instead of panic
     }
 

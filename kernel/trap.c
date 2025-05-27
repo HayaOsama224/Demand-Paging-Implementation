@@ -94,11 +94,12 @@ void usertrap(void)
     memset(pa, 0, PGSIZE);
 
     // Map physical page to user virtual address
-    if (mappages(p->pagetable, va, PGSIZE, (uint64)pa, PTE_W | PTE_R | PTE_X | PTE_U) != 0) {
-      kfree(pa);
-      p->killed = 1;
-      goto end;
-    }
+    if (mappages(p->pagetable, va, PGSIZE, (uint64)pa, PTE_W | PTE_R | PTE_U) != 0) {
+       kfree(pa);
+       p->killed = 1;
+       goto end;
+      }
+    printf("Handled page fault at va: %p for pid %d\n", (void *)va, p->pid);
 
   } else if ((which_dev = devintr()) != 0) {
     // ok
